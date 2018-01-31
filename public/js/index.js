@@ -28,9 +28,10 @@ socket.on('disconnect',
 		});
 
 
+
 socket.on('newMessage',
 		function (message) {
-			console.log(`New Message:\t [${ message.createAt }] From: ${ message.from }:\t ${ message.text }`);
+			console.log('New Message:\t',message);
 		});
 
 

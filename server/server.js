@@ -37,21 +37,46 @@ io.on('connection', // register an event listener
 			// 				text: 'My first message in this chat',
 			// 				createAt: new Date().getTime()
 			// 			});
-					
+			
+			
+			socket.emit('newMessage',   // socket.emit from Admin text Welcome to the chat app
+				{
+					from: 'Admin',
+					text: 'Welcome to Chat App'
+				});
+			
+			socket.broadcast    // socket.broadcast.emit from Admin text New user joined
+				.emit('newMessage',
+					{
+						from: 'Admin',
+						text: 'New user joined',
+						createdAt: new Date().getTime()
+					});
+			
+			
+			
 			socket.on('createMessage',
 						(message) => {
-							console.log(`createMessage:\t [${ message.createAt }] From: ${ message.from }:\t ${ message.text } `);
+							console.log('createMessage:\t', message);
 							io.emit('newMessage',   // emits an event to every connection
 								{
 									from: message.from,
 									text: message.text,
 									createdAt: new Date().getTime()
 								});
+							// socket.broadcast
+							// 	.emit('newMessage',   // broadcast message
+							// 		{
+							// 			from: message.from,
+							// 			text: message.text,
+							// 			createdAt: new Date().getTime()
+							// 		});
+							
 						});
 			
 			socket.on('disconnect',
 					() => {
-						console.log(`User was disconnected`);
+						console.log('User was disconnected');
 					});
 		});
 
