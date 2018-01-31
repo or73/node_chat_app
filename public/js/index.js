@@ -12,12 +12,12 @@ socket.on('connect',
 		// 				text: 'Hey, this is an answer for testing'
 		// 			});
 		
-		socket.emit('createMessage',
-					{
-						from: 'oarc',
-						text: 'Answering the received chat message',
-						createAt: new Date().toISOString()
-					});
+		// socket.emit('createMessage',
+		// 			{
+		// 				from: 'oarc',
+		// 				text: 'Answering the received chat message',
+		// 				createAt: new Date().getTime()
+		// 			});
 	});
 
 

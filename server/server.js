@@ -31,16 +31,22 @@ io.on('connection', // register an event listener
 			// 				console.log(`createEmail: ${ JSON.stringify(newEmail,  undefined, 2) }`)
 			// 			});
 			
-			socket.emit('newMessage',
-						{
-							from: 'OR',
-							text: 'My first message in this chat',
-							createAt: new Date().toISOString()
-						});
+			// socket.emit('newMessage',
+			// 			{
+			// 				from: 'OR',
+			// 				text: 'My first message in this chat',
+			// 				createAt: new Date().getTime()
+			// 			});
 					
 			socket.on('createMessage',
 						(message) => {
 							console.log(`createMessage:\t [${ message.createAt }] From: ${ message.from }:\t ${ message.text } `);
+							io.emit('newMessage',   // emits an event to every connection
+								{
+									from: message.from,
+									text: message.text,
+									createdAt: new Date().getTime()
+								});
 						});
 			
 			socket.on('disconnect',
