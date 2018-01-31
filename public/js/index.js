@@ -29,10 +29,34 @@ socket.on('disconnect',
 
 
 
-socket.on('newMessage',
-		function (message) {
+socket.on('newMessage', function (message) {
 			console.log('New Message:\t',message);
+			
+			let li  = jQuery('<li></li>');
+			
+			li.text(`${ message.from }: ${ message.text }`);
+			
+			jQuery('#messages').append(li);
 		});
+
+// socket.emit('createMessage', {
+// 	from: 'OR73',
+// 	text: 'Hi'
+// }, function (data) {
+// 	console.log(`Got it - ${ data }`);
+// });
+
+
+jQuery('#message-form').on('submit', function (event) {
+	event.preventDefault(); // prevent page reloading
+	
+	socket.emit('createMessage', {
+		from: 'User',
+		text: jQuery('[name=message]').val()
+	}, function () {
+	
+	});
+});
 
 
 // socket.on('newEmail',

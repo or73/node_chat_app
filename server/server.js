@@ -46,8 +46,7 @@ io.on('connection', // register an event listener
 			// 		from: 'Admin',
 			// 		text: 'Welcome to Chat App'
 			// 	});
-			socket.emit('newMessage',
-						generateMessage('Admin', 'Welcome to the chat app'));
+			socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
 			
 			
 			// socket.broadcast    // socket.broadcast.emit from Admin text New user joined
@@ -58,13 +57,11 @@ io.on('connection', // register an event listener
 			// 			createdAt: new Date().getTime()
 			// 		});
 			socket.broadcast
-				.emit('newMessage',
-					  generateMessage('Admin', 'New user joined'));
+				.emit('newMessage', generateMessage('Admin', 'New user joined'));
 			
 			
 			
-			socket.on('createMessage',
-						(message) => {
+			socket.on('createMessage', (message, callback) => {
 							console.log('createMessage:\t', message);
 							// io.emit('newMessage',   // emits an event to every connection
 							// 	{
@@ -72,8 +69,8 @@ io.on('connection', // register an event listener
 							// 		text: message.text,
 							// 		createdAt: new Date().getTime()
 							// 	});
-							io.emit('newMessage',
-									generateMessage(message.from, message.text));
+							io.emit('newMessage', generateMessage(message.from, message.text));
+							callback('This is from the Server');
 							// socket.broadcast
 							// 	.emit('newMessage',   // broadcast message
 							// 		{
@@ -84,8 +81,7 @@ io.on('connection', // register an event listener
 							
 						});
 			
-			socket.on('disconnect',
-					() => {
+			socket.on('disconnect', () => {
 						console.log('User was disconnected');
 					});
 		});
@@ -93,8 +89,7 @@ io.on('connection', // register an event listener
 
 app.use(express.static(publicPath));
 
-server.listen(__PORT,
-				() => {
+server.listen(__PORT, () => {
 					console.log(`Server is UP and RUNNING on PORT: ${ __PORT }`)
 				});
 
