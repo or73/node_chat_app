@@ -20,6 +20,29 @@ io.on('connection', // register an event listener
 		(socket) => {
 			console.log(`New user connected`);
 			
+			// socket.emit('newEmail',
+			// 			{
+			// 				from: 'oarc@gmail.com',
+			// 				text: 'This a test',
+			// 				createAt: 123
+			// 			});
+			// socket.on('createEmail',
+			// 			(newEmail) => {
+			// 				console.log(`createEmail: ${ JSON.stringify(newEmail,  undefined, 2) }`)
+			// 			});
+			
+			socket.emit('newMessage',
+						{
+							from: 'OR',
+							text: 'My first message in this chat',
+							createAt: new Date().toISOString()
+						});
+					
+			socket.on('createMessage',
+						(message) => {
+							console.log(`createMessage:\t [${ message.createAt }] From: ${ message.from }:\t ${ message.text } `);
+						});
+			
 			socket.on('disconnect',
 					() => {
 						console.log(`User was disconnected`);
