@@ -31,8 +31,9 @@ io.on('connection', // register an event listener
 			socket.on('createMessage', (message, callback) => {
 							console.log('createMessage:\t', message);
 							io.emit('newMessage', generateMessage(message.from, message.text));
-							callback('This is from the Server');
+							callback();
 						});
+			
 			
 			socket.on('createLocationMessage', (coords) => {
 				io.emit('newLocationMessage', generateLocationMessage('Admin', coords.lat, coords.lon));
