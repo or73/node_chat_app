@@ -1,7 +1,7 @@
 {
   "name": "chat-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "Chat app",
   "main": "index.js",
   "scripts": {
     "start": "node server/server.js",
@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.2",
+    "moment": "^2.20.1",
     "socket.io": "^2.0.4"
   },
   "devDependencies": {
