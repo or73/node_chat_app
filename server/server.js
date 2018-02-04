@@ -45,13 +45,22 @@ io.on('connection', // register an event listener
 			
 			socket.on('createMessage', (message, callback) => {
 							console.log('createMessage:\t', message);
-							io.emit('newMessage', generateMessage(message.from, message.text));
+							let user    = users.getUser(socket.id);
+							
+							if (user && isRealString(message.text)) {
+								//io.emit('newMessage', generateMessage(message.from, message.text));
+								io.to(user.room).emit('newMessage', generateMessage(user.name,  message.text));
+							}
 							callback();
 						});
 			
 			
 			socket.on('createLocationMessage', (coords) => {
-				io.emit('newLocationMessage', generateLocationMessage('Admin', coords.lat, coords.lon));
+				let user    = users.getUser(socket.id);
+				
+				if (user) {
+					io.to(user.room).emit('newLocationMessage', generateLocationMessage(user.name, coords.lat, coords.lon));
+				}
 			});
 			
 			socket.on('disconnect', () => {
